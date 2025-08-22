@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件下载</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0061ff 0%, #60efff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            padding: 40px 30px;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0061ff;
+            color: white;
+            border-radius: 50%;
+            font-size: 40px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #0061ff;
+            font-weight: 600;
+        }
+        
+        .description {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .file-info {
+            background: #f0f7ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 auto 30px;
+            max-width: 400px;
+            border: 1px solid #d0e5ff;
+        }
+        
+        .file-info p {
+            margin: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            max-width: 300px;
+            margin: 8px auto;
+        }
+        
+        .file-info span {
+            font-weight: 500;
+            color: #0061ff;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #0061ff;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 97, 255, 0.4);
+            margin: 10px 0 30px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .download-btn:hover {
+            background: #0051d6;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 97, 255, 0.5);
+        }
+        
+        .download-btn:active {
+            transform: translateY(0);
+        }
+        
+        .download-btn i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-number {
+            font-weight: 700;
+            font-size: 18px;
+            color: #0061ff;
+        }
+        
+        footer {
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .download-btn {
+                padding: 14px 30px;
+                font-size: 16px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <i class="fas fa-file-archive"></i>
+        </div>
+        
+        <h1>资源文件下载</h1>
+        
+        <p class="description">
+            点击下方按钮下载资源压缩包，包含所有必要的文件和文档。
+        </p>
+        
+        <div class="file-info">
+            <p>文件名: <span>resources.zip</span></p>
+            <p>文件大小: <span>15.2 MB</span></p>
+            <p>格式: <span>ZIP压缩文件</span></p>
+            <p>更新日期: <span>2023年10月15日</span></p>
+        </div>
+        
+        <a href="#" class="download-btn" id="downloadBtn">
+            <i class="fas fa-download"></i>下载文件
+        </a>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number" id="todayCount">142</span>
+                <span>今日下载</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="totalCount">12,859</span>
+                <span>总下载次数</span>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 资源下载 | 由 <a href="https://www.cloudflare.com" target="_blank">Cloudflare</a> 提供加速服务</p>
+    </footer>
+
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 在实际使用中，这里应该替换为您的ZIP文件实际URL
+            const fileUrl = 'https://example.com/path/to/your/file.zip';
+            
+            // 创建隐藏的下载链接
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.setAttribute('download', 'resources.zip');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // 更新下载计数（仅前端演示）
+            const todayCount = document.getElementById('todayCount');
+            const totalCount = document.getElementById('totalCount');
+            
+            todayCount.textContent = parseInt(todayCount.textContent) + 1;
+            totalCount.textContent = (parseInt(totalCount.textContent.replace(',', '')) + 1).toLocaleString();
+            
+            // 显示感谢消息
+            alert('下载已开始！如果没有自动开始，请检查浏览器弹出窗口阻止程序。');
+        });
+    </script>
+</body>
+</html>
